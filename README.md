@@ -1,2 +1,2 @@
-# bash
-hi every one how are you i am fine
+#!/bin/bash
+hi hi hi
