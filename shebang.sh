@@ -1,5 +1,2 @@
 #!/bin/bash
-echo "hi sumanth"
-echo "uiigf fho"
-echo "iefiegieweg"
-echo iuwrwhiuhi
+echo hi sumanth oo7
