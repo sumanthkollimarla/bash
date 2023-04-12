@@ -8,10 +8,4 @@
       ansible.builtin.debug:
             msg: Value of the URL is {{URL}}
 
-    - name: printing the URL with space
-      ansible.builtin.debug:
-            msg: Value of the URL is {{ URL }}
-
-    - name: printing the URL with quotes
-      ansible.builtin.debug:
-            msg: {{ URL }}
+   
