@@ -1,11 +1,11 @@
 # This is a YAML file example
+---
+- name: My Playbook
+  hosts: all
+  tasks:
+    - name: Install Apache
+      apt:
+        name: apache2
+        state: present
+      become: yes
 
-name: John Smith
-age: 35
-occupation: Developer
-skills:
-  - Python
-  - JavaScript
-  - SQL
-  - Git
-  - Docker
