@@ -1,14 +1,21 @@
----
-- name: My Playbook
-  hosts: localhost
-  vars:
-    employees:
-      - name: John
-        age: 32
-      - name: Jane
-        age: 28
+- name: Playbook name is Play1 
+  hosts: all  
+  tasks:
+    - name: Print hello from task1 
+      ansible.builtin.debug:
+        msg: Hai from the task1 of play1 
 
+    - name: Print hello from playy1 
+      ansible.builtin.debug:
+        msg: Hai from the task2 of play1 
 
+- name: Playbook name is Play2 
+  hosts: all  
+  tasks:
+    - name: hello from task1 
+      ansible.builtin.debug:
+        msg: Hai from the task1 of play2 
 
-
-   
+    - name: hello from tasks
+      ansible.builtin.debug:
+        msg: Hai from the task2 of play2
