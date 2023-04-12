@@ -1,22 +1,6 @@
-- name: demo on variables 
-  hosts: all  # all is default group in inventory file which includes everything 
-  vars:       # Global varibale
-      URL: play.google.com 
-  # vars_prompt:
-  #     - name: URL 
-  #       prompt: Enter URL  
-  #       private: no
-  tasks: 
-    - name: pritning URL  
-      ansible.builtin.debug:
-        msg: Url that we print is {{ URL }}  
-
-    - name: pritning URL with quotes  
-      ansible.builtin.debug:
-        msg: "{{ URL }}" 
-      vars:                 # local variable 
-        URL: task.google.com 
-
-    - name: Printing URL from CLI 
-      ansible.builtin.debug:
-        msg: URL_CLI is {{ CLI_URL }}
+- name: Example playbook
+  hosts: webserver
+  tasks:
+    - name: Task 1
+      debug:
+        msg: "Hello world"
