@@ -1,13 +1,4 @@
 ---
-- name: My First Playbook
-  hosts: all
-  tasks:
-    - name: Install Nginx
-      apt:
-        name: nginx
-        state: present
-
----
 - name: My Playbook
   hosts: localhost
   vars:
