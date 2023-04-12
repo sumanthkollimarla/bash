@@ -1,16 +1,60 @@
-- name: Demo on using variable
-  host: all
+Skip to content
+Search or jump to…
+Pull requests
+Issues
+Codespaces
+Marketplace
+Explore
+ 
+@sumanthkollimarla 
+kellydevops
+/
+Meterials
+Public
+Fork your own copy of kellydevops/Meterials
+Code
+Issues
+Pull requests
+Actions
+Projects
+Security
+Insights
+Meterials/Ansible play books/Ansible-Demo.yml
+@kellydevops
+kellydevops Add files via upload
+Latest commit dbeb2db on Apr 21, 2021
+ History
+ 1 contributor
+30 lines (27 sloc)  823 Bytes
+ 
+
+---
+- name: Create a new Demo EC2 instance
+  hosts: localhost
+  gather_facts: False
+
   vars:
-    URL: play.google.com
+      region: us-west-2
+      instance_type: t2.nano
+      ami: ami-0ca5c3bd5a268e7db  # Ubuntu 20.04 LTS, Give you AMI ID 
+      keypair: demo_us_west # pem file name, I am giveing mine
+      subnetid: subnet-e4de7e83 #give you subent in VPC
+  
   tasks:
-    - name: printing the URL
-      ansible.builten.debug:
-            msg: Value of the URL is {{URL}}
 
-    - name: printing the URL with space
-      ansible.builten.debug:
-            msg: Value of the URL is {{ URL }}
-
-    - name: printing the URL with quotes
-      ansible.builten.debug:
-            msg: "{{ URL }}""
+    - name: Create an ec2 instance
+      ec2:
+         key_name: "{{ keypair }}"
+         group: launch-wizard-63  # security group name
+         instance_type: "{{ instance_type }}"
+         image: "{{ ami }}"
+         wait: true
+         region: "{{ region }}"
+         count: 1  # default
+         count_tag:
+            Name: Demo
+         instance_tags:
+            Name: Demo
+         vpc_subnet_id: "{{ subnetid }}"
+         assign_public_ip: yes
+      register: ec2
