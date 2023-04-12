@@ -1,11 +1,17 @@
 # This is a YAML file example
----
-- name: My Playbook
-  hosts: all
+- name: Demo on using variable
+  host: all
+  vars:
+    URL: play.google.com
   tasks:
-    - name: Install Apache
-      apt:
-        name: apache2
-        state: present
-      become: yes
+    - name: printing the URL
+      ansible.builten.debug:
+            msg: Value of the URL is {{URL}}
 
+    - name: printing the URL with space
+      ansible.builten.debug:
+            msg: Value of the URL is {{ URL }}
+
+    - name: printing the URL with quotes
+      ansible.builten.debug:
+            msg: "{{ URL }}""
