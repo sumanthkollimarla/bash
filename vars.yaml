@@ -7,6 +7,16 @@
         name: nginx
         state: present
 
+---
+- name: My Playbook
+  hosts: localhost
+  vars:
+    employees:
+      - name: John
+        age: 32
+      - name: Jane
+        age: 28
+
 
 
 
