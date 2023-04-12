@@ -1,6 +1,6 @@
 # This is a YAML file example
 - name: Demo on using variable
-  host: all
+  hosts: all
   vars:
     URL: play.google.com
   tasks:
