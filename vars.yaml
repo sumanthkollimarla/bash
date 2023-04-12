@@ -1,11 +1,17 @@
 # This is a YAML file example
-- name: play1
-  hosts: all
+- name: Demo on using variable
+  host: all
+  vars:
+    URL: play.google.com
   tasks:
-    - name: print Hello from task1 of play1
+    - name: printing the URL
       ansible.builtin.debug:
-            msg: hi from task1 of play1
+            msg: Value of the URL is {{URL}}
 
-    - name: print Hello from task of play1
+    - name: printing the URL with space
       ansible.builtin.debug:
-            msg: hi from task2 of play1
+            msg: Value of the URL is {{ URL }}
+
+    - name: printing the URL with quotes
+      ansible.builtin.debug:
+            msg: "{{ URL }}""
