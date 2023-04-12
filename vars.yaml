@@ -1,15 +1,12 @@
-employees:
-  - name: John
-    age: 30
-    skills:
-      - Python
-      - Java
-  - name: Jane
-    age: 25
-    skills:
-      - HTML
-      - CSS
-      - JavaScript
+---
+- name: My First Playbook
+  hosts: all
+  tasks:
+    - name: Install Nginx
+      apt:
+        name: nginx
+        state: present
+
 
 
 
