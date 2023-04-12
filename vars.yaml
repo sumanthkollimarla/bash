@@ -1,21 +1,22 @@
-- name: Playbook name is Play1 
-  hosts: all  
-  tasks:
-    - name: Print hello from task1 
+- name: demo on variables 
+  hosts: all  # all is default group in inventory file which includes everything 
+  vars:       # Global varibale
+      URL: play.google.com 
+  # vars_prompt:
+  #     - name: URL 
+  #       prompt: Enter URL  
+  #       private: no
+  tasks: 
+    - name: pritning URL  
       ansible.builtin.debug:
-        msg: Hai from the task1 of play1 
+        msg: Url that we print is {{ URL }}  
 
-    - name: Print hello from playy1 
+    - name: pritning URL with quotes  
       ansible.builtin.debug:
-        msg: Hai from the task2 of play1 
+        msg: "{{ URL }}" 
+      vars:                 # local variable 
+        URL: task.google.com 
 
-- name: Playbook name is Play2 
-  hosts: all  
-  tasks:
-    - name: hello from task1 
+    - name: Printing URL from CLI 
       ansible.builtin.debug:
-        msg: Hai from the task1 of play2 
-
-    - name: hello from tasks
-      ansible.builtin.debug:
-        msg: Hai from the task2 of play2
+        msg: URL_CLI is {{ CLI_URL }}
