@@ -1,0 +1,6 @@
+- name: configure Roboshop project
+  hosts: all
+  become: yes
+  roles:
+     - frontend
+     - catalogue  
