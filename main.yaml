@@ -1,27 +1,44 @@
 ---
-- name: Install and configure Nginx
-  hosts: all
+- name: Deploy Node.js Application
+  hosts: webserver
   become: true
-  
-  tasks:
-    - name: Update apt cache
-      apt:
-        update_cache: yes
 
-    - name: Install Nginx
+  vars:
+    app_name: myapp
+    app_directory: /opt/{{ app_name }}
+    app_repo: git@github.com:myusername/myapp.git
+    app_port: 3000
+
+  tasks:
+    - name: Install Node.js
       apt:
-        name: nginx
+        name: nodejs
         state: present
 
-    - name: Configure Nginx
-      template:
-        src: nginx.conf.j2
-        dest: /etc/nginx/nginx.conf
-      notify:
-        - restart nginx
+    - name: Install Git
+      apt:
+        name: git
+        state: present
+
+    - name: Clone application repository
+      git:
+        repo: "{{ app_repo }}"
+        dest: "{{ app_directory }}"
+        version: main
+
+    - name: Install application dependencies
+      npm:
+        path: "{{ app_directory }}"
+
+    - name: Start the Node.js application
+      command: "node {{ app_directory }}/index.js"
+      environment:
+        NODE_ENV: production
+        PORT: "{{ app_port }}"
 
   handlers:
-    - name: restart nginx
+    - name: Restart Node.js application
       service:
-        name: nginx
+        name: node
         state: restarted
+
