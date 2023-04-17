@@ -1,6 +1,6 @@
 - name: Installing Nginx
   ansible.builtin.package:
-  name: nginx 
+- name: nginx 
   state: present 
 
 - name: Coping nginx config 
