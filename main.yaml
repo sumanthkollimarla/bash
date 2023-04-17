@@ -1,4 +1,21 @@
-name: Installing Filebeat
+- name: Installing Nginx
+  ansible.builtin.package:
+    name: nginx 
+    state: present 
+
+- name: Coping nginx config 
+  ansible.builtin.template:
+    src: nginx.conf 
+    dest: /etc/nginx/nginx.conf
+  notify: Restarting Nginx Service 
+
+- name: Starting Nginx Service 
+  ansible.builtin.service:
+    name: nginx 
+    state: started
+    enabled: yes
+
+- name:  Download and extract {{COMPONENT}}
   ansible.builtin.include_role:
-    name: elk 
-    tasks_from: filebeat 
+    name: common 
+    tasks_from: download-and-extract
