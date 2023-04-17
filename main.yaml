@@ -1,4 +1,4 @@
-- name: Installing Nginx
-  ansible.builtin.package:
-    name: nginx 
-    state: present 
+name: Installing Filebeat
+  ansible.builtin.include_role:
+    name: elk 
+    tasks_from: filebeat 
