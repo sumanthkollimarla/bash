@@ -1,0 +1,54 @@
+---
+- name: Install Jenkins and create job
+  hosts: all
+  become: true
+  vars:
+    job_name: MyJob
+    job_git_url: https://github.com/sumanthkollimarla/bash.git
+    job_git_branch: main
+    job_command: echo "Hello, world!"
+  tasks:
+    - name: Install Java
+      yum:
+        name: java-1.8.0-openjdk-devel
+        state: present
+    - name: Add Jenkins repo
+      yum_repository:
+        name: jenkins
+        baseurl: http://pkg.jenkins-ci.org/redhat-stable
+        gpgcheck: true
+        gpgkey: https://pkg.jenkins.io/redhat-stable/jenkins.io.key
+    - name: Install Jenkins
+      yum:
+        name: jenkins
+        state: present
+    - name: Start Jenkins service
+      systemd:
+        name: jenkins
+        state: started
+        enabled: yes
+    - name: Wait for Jenkins to start up
+      uri:
+        url: http://localhost:8080/login
+        return_content: yes
+        status_code: 200
+        timeout: 30
+      register: jenkins_response
+      until: "'Jenkins' in jenkins_response.content"
+      retries: 10
+      delay: 10
+    - name: Create Jenkins job
+      jenkins_job:
+        name: "{{ hello_world }}"
+        config:
+          scm:
+            git:
+              remote:
+                url: "{{ https://github.com/sumanthkollimarla/bash.git }}"
+              branches:
+                name: "{{ bash }}"
+          builders:
+            shell: |
+              #!/bin/bash
+              {{ job_command }}
+        state: present
