@@ -1,8 +1,8 @@
-- name: Example playbook
-  hosts: webserver
-  tasks:
-    - name: Task 1
-      debug:
-        msg: "Hello world"
+- name: Create Jenkins job
+  jenkins_job:
+    name: MyJob
+    config: /path/to/job/config.xml
+    state: present
+
 
 
