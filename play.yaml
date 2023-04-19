@@ -1,0 +1,10 @@
+---
+- name: Create a file on the node server
+  hosts: all
+  become: yes
+
+  tasks:
+  - name: Create a file
+    file:
+      path: /home/centos/example.txt
+      state: touch
