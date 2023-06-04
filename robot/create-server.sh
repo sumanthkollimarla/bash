@@ -9,3 +9,6 @@ echo "SG ID Used to launch instance is : $SGID"
 echo $COMPONENT
 
 aws ec2 run-instances --image-id $AMI_ID --instance-type t2.micro --security-group-ids $SGID --tag-specifications "ResourceType=instance,Tags=[{Key=Name,Value=${COMPONENT}}]"
+
+Error parsing parameter '--tag-specifications': Expected: ',', received: ']' for input:
+ResourceType=instance,Tags=[{Key=Name,Value=}]
