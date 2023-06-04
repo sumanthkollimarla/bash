@@ -13,9 +13,20 @@ echo  "AMI ID Used to launch instance is : $AMI_ID"
 echo "SG ID Used to launch instance is : $SGID"
 echo $COMPONENT
 
+createServer() {
 PRIVATE_IP=$(aws ec2 run-instances --image-id $AMI_ID --instance-type t3.micro --security-group-ids $SGID  --instance-market-options "MarketType=spot, SpotOptions={SpotInstanceType=persistent,InstanceInterruptionBehavior=stop}"  --tag-specifications "ResourceType=instance,Tags=[{Key=Name,Value=${COMPONENT}-${ENV}}]"| jq '.Instances[].PrivateIpAddress' | sed -e 's/"//g')
 
 sed -e "s/IPADDRESS/${PRIVATE_IP}/" -e "s/COMPONENT/$COMPONENT-${ENV}/" route53.json > /tmp/dns.json 
 
     echo -n "Creating the DNS Record ********"
     aws route53 change-resource-record-sets --hosted-zone-id Z00614893H0HR7FYG25K7 --change-batch file:///tmp/dns.json | jq 
+    }
+
+if [ "$1" == "all" ]; then 
+    for component in frontend catalogue cart user shipping payment mongodb mysql rabbitmq redis; do 
+        COMPONENT=$component
+        createServer
+    done 
+else 
+        createServer 
+fi 
