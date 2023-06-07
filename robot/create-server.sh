@@ -7,7 +7,7 @@ fi
 
 COMPONENT=$1
 ENV=$2
-ZONE_ID="Z00636481OT8FNJLH82AQ"
+ZONE_ID="Z00614893H0HR7FYG25K7"
 
 # AMI_ID="$(aws ec2 describe-images --region us-east-1 --filters "Name=name,Values=DevOps-LabImage-CentOS7" | jq '.Images[].ImageId' | sed -e 's/"//g')"
 AMI_ID="ami-0fa1ba08307b907ac"
